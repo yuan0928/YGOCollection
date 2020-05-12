@@ -14,9 +14,18 @@ namespace YGOCollection.library.Model
     
     public partial class refMonsterType
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public refMonsterType()
+        {
+            this.YGOMonsters = new HashSet<YGOMonster>();
+        }
+    
         public short ID { get; set; }
         public string Attribute { get; set; }
         public Nullable<System.DateTime> create_at { get; set; }
         public Nullable<System.DateTime> update_at { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<YGOMonster> YGOMonsters { get; set; }
     }
 }

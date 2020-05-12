@@ -24,10 +24,5 @@ namespace YGOCollection.library.Enums
         /// </summary>
         [Display(Name = "其他事項", Description = "其他事項")]
         other,
-        /// <summary>
-        /// Notice to Mariners
-        /// </summary>
-        [Display(Name = "Notice to Mariners", Description = "Notice to Mariners")]
-        noticetomariners,
     }
 }

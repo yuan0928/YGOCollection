@@ -14,11 +14,26 @@ namespace YGOCollection.library.Model
     
     public partial class refCardList
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public refCardList()
+        {
+            this.YGOMonsters = new HashSet<YGOMonster>();
+            this.YGOSpells = new HashSet<YGOSpell>();
+            this.YGOTraps = new HashSet<YGOTrap>();
+        }
+    
         public short ID { get; set; }
         public string code { get; set; }
         public string packname { get; set; }
         public Nullable<short> piece { get; set; }
         public Nullable<System.DateTime> create_at { get; set; }
         public Nullable<System.DateTime> update_at { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<YGOMonster> YGOMonsters { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<YGOSpell> YGOSpells { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<YGOTrap> YGOTraps { get; set; }
     }
 }

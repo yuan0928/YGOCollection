@@ -4,14 +4,23 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="9f77a8619d6a4d2d9df5d4ae0d394e9b" Name="Diagram1">
-        <EntityTypeShape EntityType="YGOCardInfoModel.refAttribute" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="YGOCardInfoModel.refCardList" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="YGOCardInfoModel.refCardType" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="YGOCardInfoModel.refMonsterType" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="YGOCardInfoModel.YGOMonsters" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="YGOCardInfoModel.YGOSpells" Width="1.5" PointX="4.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="YGOCardInfoModel.YGOTraps" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+      <Diagram DiagramId="6a6a0deb06894ac69b49170a98dea431" Name="Diagram1">
+        <EntityTypeShape EntityType="YGOCardInfoModel.Information" Width="1.5" PointX="8.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="YGOCardInfoModel.refAttribute" Width="1.5" PointX="0.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="YGOCardInfoModel.refCardList" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="YGOCardInfoModel.refCardType" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="YGOCardInfoModel.refMonsterType" Width="1.5" PointX="0.75" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="YGOCardInfoModel.YGOMonster" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="YGOCardInfoModel.YGOSpell" Width="1.5" PointX="6" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="YGOCardInfoModel.YGOTrap" Width="1.5" PointX="6" PointY="1.625" IsExpanded="true" />
+        <AssociationConnector Association="YGOCardInfoModel.fk_YGOMonster_refAttribute_CardAttributeID" ManuallyRouted="false" />
+        <AssociationConnector Association="YGOCardInfoModel.fk_YGOMonster_refCardList_CardNumberID" ManuallyRouted="false" />
+        <AssociationConnector Association="YGOCardInfoModel.fk_YGOSpells_refCardList_CardNumberID" ManuallyRouted="false" />
+        <AssociationConnector Association="YGOCardInfoModel.fk_YGOTraps_refCardList_CardNumberID" ManuallyRouted="false" />
+        <AssociationConnector Association="YGOCardInfoModel.fk_YGOMonster_refCardType_CardTypeID" ManuallyRouted="false" />
+        <AssociationConnector Association="YGOCardInfoModel.fk_YGOSpells_refCardType_CardTypeID" ManuallyRouted="false" />
+        <AssociationConnector Association="YGOCardInfoModel.fk_YGOTraps_refCardType_CardTypeID" ManuallyRouted="false" />
+        <AssociationConnector Association="YGOCardInfoModel.fk_YGOMonster_refMonsterType_Type_MonsterTypeID" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

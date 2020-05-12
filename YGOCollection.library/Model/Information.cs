@@ -12,14 +12,12 @@ namespace YGOCollection.library.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class YGOSpells
+    public partial class Information
     {
-        public short CardID { get; set; }
-        public string CardName { get; set; }
-        public string CardType { get; set; }
-        public string CardNumber { get; set; }
-        public string CardPassword { get; set; }
-        public Nullable<System.DateTime> create_at { get; set; }
-        public Nullable<System.DateTime> update_at { get; set; }
+        public System.Guid ID { get; set; }
+        public string subject { get; set; }
+        public string content { get; set; }
+        public Nullable<short> Readcount { get; set; }
+        public System.DateTime update_at { get; set; }
     }
 }

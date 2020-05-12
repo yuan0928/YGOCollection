@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YGOCollection.library.ViewModel
 {
-    public class BaseCategoryViewModel
+    public class BasicViewModel
     {
         /// <summary>
         /// Site.Id

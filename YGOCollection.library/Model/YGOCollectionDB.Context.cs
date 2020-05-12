@@ -25,12 +25,13 @@ namespace YGOCollection.library.Model
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<refAttribute> refAttribute { get; set; }
-        public virtual DbSet<refCardList> refCardList { get; set; }
-        public virtual DbSet<refCardType> refCardType { get; set; }
-        public virtual DbSet<refMonsterType> refMonsterType { get; set; }
-        public virtual DbSet<YGOMonsters> YGOMonsters { get; set; }
-        public virtual DbSet<YGOSpells> YGOSpells { get; set; }
-        public virtual DbSet<YGOTraps> YGOTraps { get; set; }
+        public virtual DbSet<Information> Information { get; set; }
+        public virtual DbSet<refAttribute> refAttributes { get; set; }
+        public virtual DbSet<refCardList> refCardLists { get; set; }
+        public virtual DbSet<refCardType> refCardTypes { get; set; }
+        public virtual DbSet<refMonsterType> refMonsterTypes { get; set; }
+        public virtual DbSet<YGOMonster> YGOMonsters { get; set; }
+        public virtual DbSet<YGOSpell> YGOSpells { get; set; }
+        public virtual DbSet<YGOTrap> YGOTraps { get; set; }
     }
 }

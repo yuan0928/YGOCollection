@@ -1,0 +1,40 @@
+﻿@model YGOCollection.library.ViewModel.ApiVviewModel.HomeListViewModel
+@{ 
+    <p>XXXXXX</p>
+}
+@*
+@{
+    var ListCount = 0; //計算一般的文章
+    var List = new List<YGOCollection.library.ViewModel.ApiVviewModel.InformationViewModel>();
+
+    foreach (var item in Model.List)
+    {
+
+        if (ListCount > 4)
+        {
+            continue;
+        }
+        ListCount++;
+        List.Add(item);
+
+    }
+}
+@if (List != null)
+{
+    <div class="col-sm-12">
+        <div class="" data-aos="fade-right" data-aos-duration="500">
+            <div class="">
+                @foreach (var item in List)
+                {
+                    <div>
+                        <a href="@Url.Action( "Detail", "Information", new { item.Id } )" class="other_news_title"></a>
+                        <span class="other_news_date pull-right">@Html.DisplayFor(m => item.StartTime, "DateTime")</span>
+                    </div>
+                }
+              
+            </div>
+        </div>
+    </div>
+}
+    *@
+   

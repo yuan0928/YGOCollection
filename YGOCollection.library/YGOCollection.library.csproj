@@ -37,8 +37,12 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -50,46 +54,84 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\ApiResult.cs" />
     <Compile Include="Class1.cs" />
+    <Compile Include="Enums\Code.cs" />
     <Compile Include="Enums\HomeListType.cs" />
+    <Compile Include="Extension\HttpExtensions.cs" />
+    <Compile Include="Extension\StringExtensions.cs" />
+    <Compile Include="Model\Information.cs">
+      <DependentUpon>YGOCollectionDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\refAttribute.cs">
+      <DependentUpon>YGOCollectionDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\refCardList.cs">
+      <DependentUpon>YGOCollectionDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\refCardType.cs">
+      <DependentUpon>YGOCollectionDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\refMonsterType.cs">
+      <DependentUpon>YGOCollectionDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\YGOCardInfoEntities.Decrypt.cs" />
     <Compile Include="Model\YGOCollectionDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>YGOCollectionDB.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\YGOCollectionDB.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>YGOCollectionDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\YGOCollectionDB.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>YGOCollectionDB.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Model\YGOMonster.cs">
+      <DependentUpon>YGOCollectionDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\YGOSpell.cs">
+      <DependentUpon>YGOCollectionDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\YGOTrap.cs">
+      <DependentUpon>YGOCollectionDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\ApiVviewModel\HomeViewModel.cs" />
     <Compile Include="ViewModel\ApiVviewModel\InformationViewModel.cs" />
+    <Compile Include="ViewModel\ApiVviewModel\ServerFileViewModel.cs" />
     <Compile Include="ViewModel\ApiVviewModel\VideoViewModel.cs" />
-    <Compile Include="ViewModel\BaseCategoryViewModel.cs" />
+    <Compile Include="ViewModel\BasicViewModel.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
+    <None Include="App.Config" />
     <EntityDeploy Include="Model\YGOCollectionDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>YGOCollectionDB.Designer.cs</LastGenOutput>
     </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.Config" />
     <None Include="Model\YGOCollectionDB.edmx.diagram">
       <DependentUpon>YGOCollectionDB.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Model\YGOCollectionDB.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>YGOCollectionDB.Context.cs</LastGenOutput>
-    </Content>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <Content Include="Model\YGOCollectionDB.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>YGOCollectionDB.edmx</DependentUpon>
+      <LastGenOutput>YGOCollectionDB.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\YGOCollectionDB.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>YGOCollectionDB.edmx</DependentUpon>
+      <LastGenOutput>YGOCollectionDB.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

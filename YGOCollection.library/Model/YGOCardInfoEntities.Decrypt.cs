@@ -16,7 +16,7 @@ namespace YGOCollection.library.Model
 
         public static YGOCardInfoEntities CreateDbContext()
         {
-            var cnStr = ConfigurationManager.ConnectionStrings["motcmpbEntities"].ConnectionString;
+            var cnStr = ConfigurationManager.ConnectionStrings["YGOCardInfoEntities"].ConnectionString;
 
             if (!cnStr.ToLower().Contains("metadata"))
             {

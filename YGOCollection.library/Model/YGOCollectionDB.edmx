@@ -4,7 +4,17 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="YGOCardInfoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="YGOCardInfoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Information">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="subject" Type="nvarchar(max)" />
+          <Property Name="content" Type="nvarchar(max)" />
+          <Property Name="Readcount" Type="smallint" />
+          <Property Name="update_at" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="refAttribute">
           <Key>
             <PropertyRef Name="ID" />
@@ -50,17 +60,18 @@
           </Key>
           <Property Name="CardID" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CardName" Type="nvarchar" MaxLength="30" />
-          <Property Name="CardAttribute" Type="nvarchar" MaxLength="1" />
+          <Property Name="CardAttributeID" Type="smallint" />
           <Property Name="CardLevel" Type="smallint" />
-          <Property Name="MonsterType" Type="nvarchar" MaxLength="10" />
-          <Property Name="CardType" Type="nvarchar" MaxLength="10" />
+          <Property Name="MonsterTypeID" Type="smallint" />
+          <Property Name="CardTypeID" Type="smallint" />
           <Property Name="ATK" Type="varchar" MaxLength="5" />
           <Property Name="DEF" Type="varchar" MaxLength="5" />
-          <Property Name="CardNumber" Type="varchar" MaxLength="15" />
+          <Property Name="CardNumberID" Type="smallint" />
           <Property Name="CardPassword" Type="varchar" MaxLength="8" />
           <Property Name="CardExtra" Type="bit" />
           <Property Name="create_at" Type="smalldatetime" />
           <Property Name="update_at" Type="smalldatetime" />
+          <Property Name="CardNumber" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="YGOSpells">
           <Key>
@@ -68,11 +79,12 @@
           </Key>
           <Property Name="CardID" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CardName" Type="nvarchar" MaxLength="30" />
-          <Property Name="CardType" Type="nvarchar" MaxLength="10" />
-          <Property Name="CardNumber" Type="varchar" MaxLength="15" />
+          <Property Name="CardTypeID" Type="smallint" />
+          <Property Name="CardNumberID" Type="smallint" />
           <Property Name="CardPassword" Type="varchar" MaxLength="8" />
           <Property Name="create_at" Type="smalldatetime" />
           <Property Name="update_at" Type="smalldatetime" />
+          <Property Name="CardNumber" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="YGOTraps">
           <Key>
@@ -80,13 +92,127 @@
           </Key>
           <Property Name="CardID" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CardName" Type="nvarchar" MaxLength="30" />
-          <Property Name="CardType" Type="nvarchar" MaxLength="10" />
-          <Property Name="CardNumber" Type="varchar" MaxLength="15" />
+          <Property Name="CardTypeID" Type="smallint" />
+          <Property Name="CardNumberID" Type="smallint" />
           <Property Name="CardPassword" Type="varchar" MaxLength="8" />
           <Property Name="create_at" Type="smalldatetime" />
           <Property Name="update_at" Type="smalldatetime" />
+          <Property Name="CardNumber" Type="varchar" MaxLength="10" />
         </EntityType>
+        <Association Name="fk_YGOMonster_refAttribute_CardAttributeID">
+          <End Role="refAttribute" Type="Self.refAttribute" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="YGOMonsters" Type="Self.YGOMonsters" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="refAttribute">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="YGOMonsters">
+              <PropertyRef Name="CardAttributeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_YGOMonster_refCardList_CardNumberID">
+          <End Role="refCardList" Type="Self.refCardList" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="YGOMonsters" Type="Self.YGOMonsters" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="refCardList">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="YGOMonsters">
+              <PropertyRef Name="CardNumberID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_YGOMonster_refCardType_CardTypeID">
+          <End Role="refCardType" Type="Self.refCardType" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="YGOMonsters" Type="Self.YGOMonsters" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="refCardType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="YGOMonsters">
+              <PropertyRef Name="CardTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_YGOMonster_refMonsterType_Type_MonsterTypeID">
+          <End Role="refMonsterType" Type="Self.refMonsterType" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="YGOMonsters" Type="Self.YGOMonsters" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="refMonsterType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="YGOMonsters">
+              <PropertyRef Name="MonsterTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_YGOSpells_refCardList_CardNumberID">
+          <End Role="refCardList" Type="Self.refCardList" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="YGOSpells" Type="Self.YGOSpells" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="refCardList">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="YGOSpells">
+              <PropertyRef Name="CardNumberID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_YGOSpells_refCardType_CardTypeID">
+          <End Role="refCardType" Type="Self.refCardType" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="YGOSpells" Type="Self.YGOSpells" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="refCardType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="YGOSpells">
+              <PropertyRef Name="CardTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_YGOTraps_refCardList_CardNumberID">
+          <End Role="refCardList" Type="Self.refCardList" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="YGOTraps" Type="Self.YGOTraps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="refCardList">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="YGOTraps">
+              <PropertyRef Name="CardNumberID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_YGOTraps_refCardType_CardTypeID">
+          <End Role="refCardType" Type="Self.refCardType" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="YGOTraps" Type="Self.YGOTraps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="refCardType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="YGOTraps">
+              <PropertyRef Name="CardTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="YGOCardInfoModelStoreContainer">
+          <EntitySet Name="Information" EntityType="Self.Information" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="refAttribute" EntityType="Self.refAttribute" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="refCardList" EntityType="Self.refCardList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="refCardType" EntityType="Self.refCardType" Schema="dbo" store:Type="Tables" />
@@ -94,12 +220,53 @@
           <EntitySet Name="YGOMonsters" EntityType="Self.YGOMonsters" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="YGOSpells" EntityType="Self.YGOSpells" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="YGOTraps" EntityType="Self.YGOTraps" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_YGOMonster_refAttribute_CardAttributeID" Association="Self.fk_YGOMonster_refAttribute_CardAttributeID">
+            <End Role="refAttribute" EntitySet="refAttribute" />
+            <End Role="YGOMonsters" EntitySet="YGOMonsters" />
+          </AssociationSet>
+          <AssociationSet Name="fk_YGOMonster_refCardList_CardNumberID" Association="Self.fk_YGOMonster_refCardList_CardNumberID">
+            <End Role="refCardList" EntitySet="refCardList" />
+            <End Role="YGOMonsters" EntitySet="YGOMonsters" />
+          </AssociationSet>
+          <AssociationSet Name="fk_YGOMonster_refCardType_CardTypeID" Association="Self.fk_YGOMonster_refCardType_CardTypeID">
+            <End Role="refCardType" EntitySet="refCardType" />
+            <End Role="YGOMonsters" EntitySet="YGOMonsters" />
+          </AssociationSet>
+          <AssociationSet Name="fk_YGOMonster_refMonsterType_Type_MonsterTypeID" Association="Self.fk_YGOMonster_refMonsterType_Type_MonsterTypeID">
+            <End Role="refMonsterType" EntitySet="refMonsterType" />
+            <End Role="YGOMonsters" EntitySet="YGOMonsters" />
+          </AssociationSet>
+          <AssociationSet Name="fk_YGOSpells_refCardList_CardNumberID" Association="Self.fk_YGOSpells_refCardList_CardNumberID">
+            <End Role="refCardList" EntitySet="refCardList" />
+            <End Role="YGOSpells" EntitySet="YGOSpells" />
+          </AssociationSet>
+          <AssociationSet Name="fk_YGOSpells_refCardType_CardTypeID" Association="Self.fk_YGOSpells_refCardType_CardTypeID">
+            <End Role="refCardType" EntitySet="refCardType" />
+            <End Role="YGOSpells" EntitySet="YGOSpells" />
+          </AssociationSet>
+          <AssociationSet Name="fk_YGOTraps_refCardList_CardNumberID" Association="Self.fk_YGOTraps_refCardList_CardNumberID">
+            <End Role="refCardList" EntitySet="refCardList" />
+            <End Role="YGOTraps" EntitySet="YGOTraps" />
+          </AssociationSet>
+          <AssociationSet Name="fk_YGOTraps_refCardType_CardTypeID" Association="Self.fk_YGOTraps_refCardType_CardTypeID">
+            <End Role="refCardType" EntitySet="refCardType" />
+            <End Role="YGOTraps" EntitySet="YGOTraps" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="YGOCardInfoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Information">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="subject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Readcount" Type="Int16" />
+          <Property Name="update_at" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
         <EntityType Name="refAttribute">
           <Key>
             <PropertyRef Name="ID" />
@@ -108,6 +275,7 @@
           <Property Name="attribute" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
           <Property Name="create_at" Type="DateTime" Precision="0" />
           <Property Name="update_at" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="YGOMonsters" Relationship="Self.fk_YGOMonster_refAttribute_CardAttributeID" FromRole="refAttribute" ToRole="YGOMonsters" />
         </EntityType>
         <EntityType Name="refCardList">
           <Key>
@@ -119,6 +287,9 @@
           <Property Name="piece" Type="Int16" />
           <Property Name="create_at" Type="DateTime" Precision="0" />
           <Property Name="update_at" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="YGOMonsters" Relationship="Self.fk_YGOMonster_refCardList_CardNumberID" FromRole="refCardList" ToRole="YGOMonsters" />
+          <NavigationProperty Name="YGOSpells" Relationship="Self.fk_YGOSpells_refCardList_CardNumberID" FromRole="refCardList" ToRole="YGOSpells" />
+          <NavigationProperty Name="YGOTraps" Relationship="Self.fk_YGOTraps_refCardList_CardNumberID" FromRole="refCardList" ToRole="YGOTraps" />
         </EntityType>
         <EntityType Name="refCardType">
           <Key>
@@ -129,6 +300,9 @@
           <Property Name="cardtype" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="create_at" Type="DateTime" Precision="0" />
           <Property Name="update_at" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="YGOMonsters" Relationship="Self.fk_YGOMonster_refCardType_CardTypeID" FromRole="refCardType" ToRole="YGOMonsters" />
+          <NavigationProperty Name="YGOSpells" Relationship="Self.fk_YGOSpells_refCardType_CardTypeID" FromRole="refCardType" ToRole="YGOSpells" />
+          <NavigationProperty Name="YGOTraps" Relationship="Self.fk_YGOTraps_refCardType_CardTypeID" FromRole="refCardType" ToRole="YGOTraps" />
         </EntityType>
         <EntityType Name="refMonsterType">
           <Key>
@@ -138,57 +312,214 @@
           <Property Name="Attribute" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="create_at" Type="DateTime" Precision="0" />
           <Property Name="update_at" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="YGOMonsters" Relationship="Self.fk_YGOMonster_refMonsterType_Type_MonsterTypeID" FromRole="refMonsterType" ToRole="YGOMonsters" />
         </EntityType>
-        <EntityType Name="YGOMonsters">
+        <EntityType Name="YGOMonster">
           <Key>
             <PropertyRef Name="CardID" />
           </Key>
           <Property Name="CardID" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CardName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="CardAttribute" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="CardAttributeID" Type="Int16" />
           <Property Name="CardLevel" Type="Int16" />
-          <Property Name="MonsterType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="CardType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="MonsterTypeID" Type="Int16" />
+          <Property Name="CardTypeID" Type="Int16" />
           <Property Name="ATK" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
           <Property Name="DEF" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
-          <Property Name="CardNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="CardNumberID" Type="Int16" />
           <Property Name="CardPassword" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
           <Property Name="CardExtra" Type="Boolean" />
           <Property Name="create_at" Type="DateTime" Precision="0" />
           <Property Name="update_at" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="refAttribute" Relationship="Self.fk_YGOMonster_refAttribute_CardAttributeID" FromRole="YGOMonsters" ToRole="refAttribute" />
+          <NavigationProperty Name="refCardList" Relationship="Self.fk_YGOMonster_refCardList_CardNumberID" FromRole="YGOMonsters" ToRole="refCardList" />
+          <NavigationProperty Name="refCardType" Relationship="Self.fk_YGOMonster_refCardType_CardTypeID" FromRole="YGOMonsters" ToRole="refCardType" />
+          <NavigationProperty Name="refMonsterType" Relationship="Self.fk_YGOMonster_refMonsterType_Type_MonsterTypeID" FromRole="YGOMonsters" ToRole="refMonsterType" />
+          <Property Name="CardNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="YGOSpells">
+        <EntityType Name="YGOSpell">
           <Key>
             <PropertyRef Name="CardID" />
           </Key>
           <Property Name="CardID" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CardName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="CardType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="CardNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="CardTypeID" Type="Int16" />
+          <Property Name="CardNumberID" Type="Int16" />
           <Property Name="CardPassword" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
           <Property Name="create_at" Type="DateTime" Precision="0" />
           <Property Name="update_at" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="refCardList" Relationship="Self.fk_YGOSpells_refCardList_CardNumberID" FromRole="YGOSpells" ToRole="refCardList" />
+          <NavigationProperty Name="refCardType" Relationship="Self.fk_YGOSpells_refCardType_CardTypeID" FromRole="YGOSpells" ToRole="refCardType" />
+          <Property Name="CardNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="YGOTraps">
+        <EntityType Name="YGOTrap">
           <Key>
             <PropertyRef Name="CardID" />
           </Key>
           <Property Name="CardID" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CardName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="CardType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="CardNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="CardTypeID" Type="Int16" />
+          <Property Name="CardNumberID" Type="Int16" />
           <Property Name="CardPassword" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
           <Property Name="create_at" Type="DateTime" Precision="0" />
           <Property Name="update_at" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="refCardList" Relationship="Self.fk_YGOTraps_refCardList_CardNumberID" FromRole="YGOTraps" ToRole="refCardList" />
+          <NavigationProperty Name="refCardType" Relationship="Self.fk_YGOTraps_refCardType_CardTypeID" FromRole="YGOTraps" ToRole="refCardType" />
+          <Property Name="CardNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
+        <Association Name="fk_YGOMonster_refAttribute_CardAttributeID">
+          <End Role="refAttribute" Type="Self.refAttribute" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="YGOMonsters" Type="Self.YGOMonster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="refAttribute">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="YGOMonsters">
+              <PropertyRef Name="CardAttributeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_YGOMonster_refCardList_CardNumberID">
+          <End Role="refCardList" Type="Self.refCardList" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="YGOMonsters" Type="Self.YGOMonster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="refCardList">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="YGOMonsters">
+              <PropertyRef Name="CardNumberID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_YGOSpells_refCardList_CardNumberID">
+          <End Role="refCardList" Type="Self.refCardList" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="YGOSpells" Type="Self.YGOSpell" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="refCardList">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="YGOSpells">
+              <PropertyRef Name="CardNumberID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_YGOTraps_refCardList_CardNumberID">
+          <End Role="refCardList" Type="Self.refCardList" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="YGOTraps" Type="Self.YGOTrap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="refCardList">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="YGOTraps">
+              <PropertyRef Name="CardNumberID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_YGOMonster_refCardType_CardTypeID">
+          <End Role="refCardType" Type="Self.refCardType" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="YGOMonsters" Type="Self.YGOMonster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="refCardType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="YGOMonsters">
+              <PropertyRef Name="CardTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_YGOSpells_refCardType_CardTypeID">
+          <End Role="refCardType" Type="Self.refCardType" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="YGOSpells" Type="Self.YGOSpell" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="refCardType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="YGOSpells">
+              <PropertyRef Name="CardTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_YGOTraps_refCardType_CardTypeID">
+          <End Role="refCardType" Type="Self.refCardType" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="YGOTraps" Type="Self.YGOTrap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="refCardType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="YGOTraps">
+              <PropertyRef Name="CardTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_YGOMonster_refMonsterType_Type_MonsterTypeID">
+          <End Role="refMonsterType" Type="Self.refMonsterType" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="YGOMonsters" Type="Self.YGOMonster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="refMonsterType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="YGOMonsters">
+              <PropertyRef Name="MonsterTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="YGOCardInfoEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="refAttribute" EntityType="Self.refAttribute" />
-          <EntitySet Name="refCardList" EntityType="Self.refCardList" />
-          <EntitySet Name="refCardType" EntityType="Self.refCardType" />
-          <EntitySet Name="refMonsterType" EntityType="Self.refMonsterType" />
-          <EntitySet Name="YGOMonsters" EntityType="Self.YGOMonsters" />
-          <EntitySet Name="YGOSpells" EntityType="Self.YGOSpells" />
-          <EntitySet Name="YGOTraps" EntityType="Self.YGOTraps" />
+          <EntitySet Name="Information" EntityType="Self.Information" />
+          <EntitySet Name="refAttributes" EntityType="Self.refAttribute" />
+          <EntitySet Name="refCardLists" EntityType="Self.refCardList" />
+          <EntitySet Name="refCardTypes" EntityType="Self.refCardType" />
+          <EntitySet Name="refMonsterTypes" EntityType="Self.refMonsterType" />
+          <EntitySet Name="YGOMonsters" EntityType="Self.YGOMonster" />
+          <EntitySet Name="YGOSpells" EntityType="Self.YGOSpell" />
+          <EntitySet Name="YGOTraps" EntityType="Self.YGOTrap" />
+          <AssociationSet Name="fk_YGOMonster_refAttribute_CardAttributeID" Association="Self.fk_YGOMonster_refAttribute_CardAttributeID">
+            <End Role="refAttribute" EntitySet="refAttributes" />
+            <End Role="YGOMonsters" EntitySet="YGOMonsters" />
+          </AssociationSet>
+          <AssociationSet Name="fk_YGOMonster_refCardList_CardNumberID" Association="Self.fk_YGOMonster_refCardList_CardNumberID">
+            <End Role="refCardList" EntitySet="refCardLists" />
+            <End Role="YGOMonsters" EntitySet="YGOMonsters" />
+          </AssociationSet>
+          <AssociationSet Name="fk_YGOSpells_refCardList_CardNumberID" Association="Self.fk_YGOSpells_refCardList_CardNumberID">
+            <End Role="refCardList" EntitySet="refCardLists" />
+            <End Role="YGOSpells" EntitySet="YGOSpells" />
+          </AssociationSet>
+          <AssociationSet Name="fk_YGOTraps_refCardList_CardNumberID" Association="Self.fk_YGOTraps_refCardList_CardNumberID">
+            <End Role="refCardList" EntitySet="refCardLists" />
+            <End Role="YGOTraps" EntitySet="YGOTraps" />
+          </AssociationSet>
+          <AssociationSet Name="fk_YGOMonster_refCardType_CardTypeID" Association="Self.fk_YGOMonster_refCardType_CardTypeID">
+            <End Role="refCardType" EntitySet="refCardTypes" />
+            <End Role="YGOMonsters" EntitySet="YGOMonsters" />
+          </AssociationSet>
+          <AssociationSet Name="fk_YGOSpells_refCardType_CardTypeID" Association="Self.fk_YGOSpells_refCardType_CardTypeID">
+            <End Role="refCardType" EntitySet="refCardTypes" />
+            <End Role="YGOSpells" EntitySet="YGOSpells" />
+          </AssociationSet>
+          <AssociationSet Name="fk_YGOTraps_refCardType_CardTypeID" Association="Self.fk_YGOTraps_refCardType_CardTypeID">
+            <End Role="refCardType" EntitySet="refCardTypes" />
+            <End Role="YGOTraps" EntitySet="YGOTraps" />
+          </AssociationSet>
+          <AssociationSet Name="fk_YGOMonster_refMonsterType_Type_MonsterTypeID" Association="Self.fk_YGOMonster_refMonsterType_Type_MonsterTypeID">
+            <End Role="refMonsterType" EntitySet="refMonsterTypes" />
+            <End Role="YGOMonsters" EntitySet="YGOMonsters" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -196,7 +527,18 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="YGOCardInfoModelStoreContainer" CdmEntityContainer="YGOCardInfoEntities">
-          <EntitySetMapping Name="refAttribute">
+          <EntitySetMapping Name="Information">
+            <EntityTypeMapping TypeName="YGOCardInfoModel.Information">
+              <MappingFragment StoreEntitySet="Information">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="content" ColumnName="content" />
+                <ScalarProperty Name="Readcount" ColumnName="Readcount" />
+                <ScalarProperty Name="update_at" ColumnName="update_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="refAttributes">
             <EntityTypeMapping TypeName="YGOCardInfoModel.refAttribute">
               <MappingFragment StoreEntitySet="refAttribute">
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -206,7 +548,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="refCardList">
+          <EntitySetMapping Name="refCardLists">
             <EntityTypeMapping TypeName="YGOCardInfoModel.refCardList">
               <MappingFragment StoreEntitySet="refCardList">
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -218,7 +560,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="refCardType">
+          <EntitySetMapping Name="refCardTypes">
             <EntityTypeMapping TypeName="YGOCardInfoModel.refCardType">
               <MappingFragment StoreEntitySet="refCardType">
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -229,7 +571,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="refMonsterType">
+          <EntitySetMapping Name="refMonsterTypes">
             <EntityTypeMapping TypeName="YGOCardInfoModel.refMonsterType">
               <MappingFragment StoreEntitySet="refMonsterType">
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -240,17 +582,18 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="YGOMonsters">
-            <EntityTypeMapping TypeName="YGOCardInfoModel.YGOMonsters">
+            <EntityTypeMapping TypeName="YGOCardInfoModel.YGOMonster">
               <MappingFragment StoreEntitySet="YGOMonsters">
+                <ScalarProperty Name="CardNumber" ColumnName="CardNumber" />
                 <ScalarProperty Name="CardID" ColumnName="CardID" />
                 <ScalarProperty Name="CardName" ColumnName="CardName" />
-                <ScalarProperty Name="CardAttribute" ColumnName="CardAttribute" />
+                <ScalarProperty Name="CardAttributeID" ColumnName="CardAttributeID" />
                 <ScalarProperty Name="CardLevel" ColumnName="CardLevel" />
-                <ScalarProperty Name="MonsterType" ColumnName="MonsterType" />
-                <ScalarProperty Name="CardType" ColumnName="CardType" />
+                <ScalarProperty Name="MonsterTypeID" ColumnName="MonsterTypeID" />
+                <ScalarProperty Name="CardTypeID" ColumnName="CardTypeID" />
                 <ScalarProperty Name="ATK" ColumnName="ATK" />
                 <ScalarProperty Name="DEF" ColumnName="DEF" />
-                <ScalarProperty Name="CardNumber" ColumnName="CardNumber" />
+                <ScalarProperty Name="CardNumberID" ColumnName="CardNumberID" />
                 <ScalarProperty Name="CardPassword" ColumnName="CardPassword" />
                 <ScalarProperty Name="CardExtra" ColumnName="CardExtra" />
                 <ScalarProperty Name="create_at" ColumnName="create_at" />
@@ -259,12 +602,13 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="YGOSpells">
-            <EntityTypeMapping TypeName="YGOCardInfoModel.YGOSpells">
+            <EntityTypeMapping TypeName="YGOCardInfoModel.YGOSpell">
               <MappingFragment StoreEntitySet="YGOSpells">
+                <ScalarProperty Name="CardNumber" ColumnName="CardNumber" />
                 <ScalarProperty Name="CardID" ColumnName="CardID" />
                 <ScalarProperty Name="CardName" ColumnName="CardName" />
-                <ScalarProperty Name="CardType" ColumnName="CardType" />
-                <ScalarProperty Name="CardNumber" ColumnName="CardNumber" />
+                <ScalarProperty Name="CardTypeID" ColumnName="CardTypeID" />
+                <ScalarProperty Name="CardNumberID" ColumnName="CardNumberID" />
                 <ScalarProperty Name="CardPassword" ColumnName="CardPassword" />
                 <ScalarProperty Name="create_at" ColumnName="create_at" />
                 <ScalarProperty Name="update_at" ColumnName="update_at" />
@@ -272,12 +616,13 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="YGOTraps">
-            <EntityTypeMapping TypeName="YGOCardInfoModel.YGOTraps">
+            <EntityTypeMapping TypeName="YGOCardInfoModel.YGOTrap">
               <MappingFragment StoreEntitySet="YGOTraps">
+                <ScalarProperty Name="CardNumber" ColumnName="CardNumber" />
                 <ScalarProperty Name="CardID" ColumnName="CardID" />
                 <ScalarProperty Name="CardName" ColumnName="CardName" />
-                <ScalarProperty Name="CardType" ColumnName="CardType" />
-                <ScalarProperty Name="CardNumber" ColumnName="CardNumber" />
+                <ScalarProperty Name="CardTypeID" ColumnName="CardTypeID" />
+                <ScalarProperty Name="CardNumberID" ColumnName="CardNumberID" />
                 <ScalarProperty Name="CardPassword" ColumnName="CardPassword" />
                 <ScalarProperty Name="create_at" ColumnName="create_at" />
                 <ScalarProperty Name="update_at" ColumnName="update_at" />
@@ -298,7 +643,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

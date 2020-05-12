@@ -12,14 +12,18 @@ namespace YGOCollection.library.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class YGOTraps
+    public partial class YGOTrap
     {
         public short CardID { get; set; }
         public string CardName { get; set; }
-        public string CardType { get; set; }
-        public string CardNumber { get; set; }
+        public Nullable<short> CardTypeID { get; set; }
+        public Nullable<short> CardNumberID { get; set; }
         public string CardPassword { get; set; }
         public Nullable<System.DateTime> create_at { get; set; }
         public Nullable<System.DateTime> update_at { get; set; }
+        public string CardNumber { get; set; }
+    
+        public virtual refCardList refCardList { get; set; }
+        public virtual refCardType refCardType { get; set; }
     }
 }
