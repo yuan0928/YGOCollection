@@ -9,7 +9,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using YGOCollection.DTO;
+using YGOCollection.Repository;
 using YGOCollection.Repository.DataModels;
+using YGOCollection.Repository.Interface;
+using YGOCollection.Service;
+using YGOCollection.Service.Interface;
 
 namespace YGOCollection
 {
@@ -27,6 +32,11 @@ namespace YGOCollection
         {
             services.AddControllersWithViews();
             services.AddDbContext<YGOContext>(options => options.UseSqlServer(Configuration.GetConnectionString("YGOConnection")));
+            services.AddAutoMapper(typeof(Startup));
+            services.AddScoped<IGenericService<CardSeriesDTO>, CardSeriesService>();
+            services.AddScoped<IGenericService<CardInfoDTO>, CardInfoService>();
+            services.AddScoped<IGenericRepository<CardInfo>, GenericRepository<CardInfo>>();
+            services.AddScoped<IGenericRepository<CardSeries>, GenericRepository<CardSeries>>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

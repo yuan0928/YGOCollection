@@ -2,7 +2,29 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+<div class="container">
+    <div class="text-center">
+        <h1 class="display-4">YGO收藏</h1>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="list-group">
+                <a href="#" class="list-group-item disabled">卡表一覽</a>
+                <a href="#" class="list-group-item">卡表一覽</a>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="list-group">
+                <a href="#" class="list-group-item disabled">新增卡片</a>
+                <a href="#" class="list-group-item">新增卡片</a>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="list-group">
+                <a href="#" class="list-group-item disabled">相關設定</a>
+                <a asp-controller="CardSeries" asp-action="Index" class="list-group-item">系列設定</a>
+            </div>
+        </div>
+    </div>
 </div>
