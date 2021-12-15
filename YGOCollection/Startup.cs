@@ -35,8 +35,10 @@ namespace YGOCollection
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IGenericService<CardSeriesDTO>, CardSeriesService>();
             services.AddScoped<IGenericService<CardInfoDTO>, CardInfoService>();
+            services.AddScoped<IGenericService<CardTypeDTO>, CardTypeService>();
             services.AddScoped<IGenericRepository<CardInfo>, GenericRepository<CardInfo>>();
             services.AddScoped<IGenericRepository<CardSeries>, GenericRepository<CardSeries>>();
+            services.AddScoped<IGenericRepository<CardType>, GenericRepository<CardType>>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
