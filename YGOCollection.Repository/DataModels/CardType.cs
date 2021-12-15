@@ -13,6 +13,7 @@ namespace YGOCollection.Repository.DataModels
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string TypeName { get; set; }
+        public bool IsDelete { get; set; }
         public virtual ICollection<CardInfo> CardInfos { get; set; }
     }
 }
