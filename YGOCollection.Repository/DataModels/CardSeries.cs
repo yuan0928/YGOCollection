@@ -15,6 +15,5 @@ namespace YGOCollection.Repository.DataModels
         public string SeriesName { get; set; }
         public string SeriesCode { get; set; }
         public bool IsDelete { get; set; }
-        public virtual ICollection<CardInfo> CardInfos { get; set; }
     }
 }

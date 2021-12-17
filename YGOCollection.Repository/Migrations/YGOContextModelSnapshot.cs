@@ -111,13 +111,13 @@ namespace YGOCollection.Repository.Migrations
             modelBuilder.Entity("YGOCollection.Repository.DataModels.CardInfo", b =>
                 {
                     b.HasOne("YGOCollection.Repository.DataModels.CardSeries", "CardSeries")
-                        .WithMany("CardInfos")
+                        .WithMany()
                         .HasForeignKey("CardSeriesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("YGOCollection.Repository.DataModels.CardType", "CardType")
-                        .WithMany("CardInfos")
+                        .WithMany()
                         .HasForeignKey("CardTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -125,16 +125,6 @@ namespace YGOCollection.Repository.Migrations
                     b.Navigation("CardSeries");
 
                     b.Navigation("CardType");
-                });
-
-            modelBuilder.Entity("YGOCollection.Repository.DataModels.CardSeries", b =>
-                {
-                    b.Navigation("CardInfos");
-                });
-
-            modelBuilder.Entity("YGOCollection.Repository.DataModels.CardType", b =>
-                {
-                    b.Navigation("CardInfos");
                 });
 #pragma warning restore 612, 618
         }

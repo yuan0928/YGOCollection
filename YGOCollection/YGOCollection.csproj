@@ -23,8 +23,4 @@
     <ProjectReference Include="..\YGOCollection.Service\YGOCollection.Service.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\YGOInfo\" />
-  </ItemGroup>
-
 </Project>

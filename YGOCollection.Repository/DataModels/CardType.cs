@@ -14,6 +14,5 @@ namespace YGOCollection.Repository.DataModels
         public int Id { get; set; }
         public string TypeName { get; set; }
         public bool IsDelete { get; set; }
-        public virtual ICollection<CardInfo> CardInfos { get; set; }
     }
 }

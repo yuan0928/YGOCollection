@@ -13,5 +13,7 @@ namespace YGOCollection.Models
         public int CardSeriesId { get; set; }
         public string SeriesNum { get; set; }
         public string CardPassword { get; set; }
+        public CardTypeViewModel CardType { get; set; }
+        public CardSeriesViewModel CardSeries { get; set; }
     }
 }

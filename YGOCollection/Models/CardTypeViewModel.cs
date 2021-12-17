@@ -9,5 +9,6 @@ namespace YGOCollection.Models
     {
         public int Id { get; set; }
         public string TypeName { get; set; }
+        public bool IsDelete { get; set; }
     }
 }

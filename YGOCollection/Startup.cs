@@ -36,9 +36,10 @@ namespace YGOCollection
             services.AddScoped<IGenericService<CardSeriesDTO>, CardSeriesService>();
             services.AddScoped<IGenericService<CardInfoDTO>, CardInfoService>();
             services.AddScoped<IGenericService<CardTypeDTO>, CardTypeService>();
-            services.AddScoped<IGenericRepository<CardInfo>, GenericRepository<CardInfo>>();
+            //services.AddScoped<IGenericRepository<CardInfo>, GenericRepository<CardInfo>>();
             services.AddScoped<IGenericRepository<CardSeries>, GenericRepository<CardSeries>>();
             services.AddScoped<IGenericRepository<CardType>, GenericRepository<CardType>>();
+            services.AddScoped<IGenericRepository<CardInfo>, CardInfoRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
