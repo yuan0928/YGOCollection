@@ -61,7 +61,7 @@ namespace YGOCollection.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,SeriesName")] CardSeriesViewModel cardSeriesViewModel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,SeriesName,SeriesCode")] CardSeriesViewModel cardSeriesViewModel)
         {
             if (id != cardSeriesViewModel.Id)
             {   
