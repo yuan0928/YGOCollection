@@ -97,8 +97,7 @@ namespace YGOCollection.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var cardType = await _genericService.GetDataById(id);
-            await _genericService.DeleteData(cardType);
+            await _genericService.DeleteData(id);
             return RedirectToAction(nameof(Index));
         }
     }

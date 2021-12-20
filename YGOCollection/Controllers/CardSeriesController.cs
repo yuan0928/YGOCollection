@@ -33,7 +33,7 @@ namespace YGOCollection.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,SeriesName")] CardSeriesViewModel cardSeriesViewModel)
+        public async Task<IActionResult> Create([Bind("Id,SeriesName,SeriesCode")] CardSeriesViewModel cardSeriesViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -97,8 +97,7 @@ namespace YGOCollection.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var cardSeries = await _genericService.GetDataById(id);
-            await _genericService.DeleteData(cardSeries);
+            await _genericService.DeleteData(id);
             return RedirectToAction(nameof(Index));
         }
     }

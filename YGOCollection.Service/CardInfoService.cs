@@ -27,9 +27,10 @@ namespace YGOCollection.Service
             await _genericRepository.Add(cardInfoEntity);
         }
 
-        public async Task DeleteData(CardInfoDTO model)
+        public async Task DeleteData(int? id)
         {
-            var cardInfoEntity = _mapper.Map<CardInfo>(model);
+            var cardInfoEntity = await _genericRepository.GetById(id);
+
             await _genericRepository.Delete(cardInfoEntity);
         }
 

@@ -26,6 +26,10 @@ namespace YGOCollection.Repository
 
         public async Task Delete(CardInfo entity)
         {
+            if (_ygoContext.Entry(entity).State == EntityState.Deleted) 
+            {
+                _dbSet.Attach(entity);
+            }
             _dbSet.Remove(entity);
             await _ygoContext.SaveChangesAsync();
         }

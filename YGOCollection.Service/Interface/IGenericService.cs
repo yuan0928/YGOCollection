@@ -12,7 +12,7 @@ namespace YGOCollection.Service.Interface
         Task<T> GetDataById(int? id);
         Task AddData(T model);
         Task UpdateData(T model);
-        Task DeleteData(T model);
+        Task DeleteData(int? id);
         
     }
 }

@@ -122,5 +122,13 @@ namespace YGOCollection.Controllers
 
             return View(_mapper.Map<CardInfoViewModel>(cardInfo));
         }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            await _cardInfoService.DeleteData(id);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
