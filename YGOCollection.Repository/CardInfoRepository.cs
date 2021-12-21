@@ -20,25 +20,22 @@ namespace YGOCollection.Repository
         }
         public async Task Add(CardInfo entity)
         {
-            _dbSet.Add(entity);
-            await _ygoContext.SaveChangesAsync();
+            await _dbSet.AddAsync(entity);
         }
 
-        public async Task Delete(CardInfo entity)
+        public void Delete(CardInfo entity)
         {
             if (_ygoContext.Entry(entity).State == EntityState.Deleted) 
             {
                 _dbSet.Attach(entity);
             }
             _dbSet.Remove(entity);
-            await _ygoContext.SaveChangesAsync();
         }
-        public async Task SoftDelete(CardInfo entity)
+        public void SoftDelete(CardInfo entity)
         {
 
             _dbSet.Attach(entity);
             _ygoContext.Entry(entity).State = EntityState.Modified;
-            await _ygoContext.SaveChangesAsync();
         }
 
         public async Task<CardInfo> GetById(object id)
@@ -51,11 +48,10 @@ namespace YGOCollection.Repository
             return await _dbSet.Include(c => c.CardSeries).Include(c => c.CardType).ToListAsync();
         }
 
-        public async Task Update(CardInfo entity)
+        public void Update(CardInfo entity)
         {
             _dbSet.Attach(entity);
             _ygoContext.Entry(entity).State = EntityState.Modified;
-            await _ygoContext.SaveChangesAsync();
         }
     }
 }

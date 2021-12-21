@@ -11,8 +11,8 @@ namespace YGOCollection.Repository.Interface
         Task<IEnumerable<TEntity>> GetList();
         Task<TEntity> GetById(object id);
         Task Add(TEntity entity);
-        Task Delete(TEntity entity);
-        Task SoftDelete(TEntity entity);
-        Task Update(TEntity entity);
+        void Delete(TEntity entity);
+        void SoftDelete(TEntity entity);
+        void Update(TEntity entity);
     }
 }

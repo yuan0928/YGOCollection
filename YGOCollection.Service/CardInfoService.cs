@@ -13,48 +13,52 @@ namespace YGOCollection.Service
 {
     public class CardInfoService : IGenericService<CardInfoDTO>
     {
-        private readonly IGenericRepository<CardInfo> _genericRepository;
+        private readonly IUnitOfWork<CardInfo> _unitOfWork;
         private readonly IMapper _mapper;
 
-        public CardInfoService(IGenericRepository<CardInfo> genericRepository, IMapper mapper) 
+        public CardInfoService(IUnitOfWork<CardInfo> unitOfWork, IMapper mapper) 
         {
-            _genericRepository = genericRepository;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
         public async Task AddData(CardInfoDTO model)
         {
             var cardInfoEntity = _mapper.Map<CardInfo>(model);
-            await _genericRepository.Add(cardInfoEntity);
+            await _unitOfWork.GenericRepository.Add(cardInfoEntity);
+            await _unitOfWork.SaveChanges();
         }
 
         public async Task DeleteData(int? id)
         {
-            var cardInfoEntity = await _genericRepository.GetById(id);
-            await _genericRepository.Delete(cardInfoEntity);
+            var cardInfoEntity = await _unitOfWork.GenericRepository.GetById(id);
+            _unitOfWork.GenericRepository.Delete(cardInfoEntity);
+            await _unitOfWork.SaveChanges();
         }
         public async Task SoftDeleteData(int? id)
         {
-            var cardInfoEntity = await _genericRepository.GetById(id);
+            var cardInfoEntity = await _unitOfWork.GenericRepository.GetById(id);
             cardInfoEntity.IsDelete = true;
-            await _genericRepository.Delete(cardInfoEntity);
+            _unitOfWork.GenericRepository.Delete(cardInfoEntity);
+            await _unitOfWork.SaveChanges();
         }
 
         public async Task<CardInfoDTO>  GetDataById(int? id)
         {
-            var cardInfo = await _genericRepository.GetById(id);
+            var cardInfo = await _unitOfWork.GenericRepository.GetById(id);
             return _mapper.Map<CardInfoDTO>(cardInfo);
         }
 
         public async Task<IEnumerable<CardInfoDTO>> GetList()
         {
-            var CardInfoList = await _genericRepository.GetList();
+            var CardInfoList = await _unitOfWork.GenericRepository.GetList();
             return _mapper.Map<List<CardInfoDTO>>(CardInfoList);
         }
 
         public async Task UpdateData(CardInfoDTO model)
         {
             var cardInfoEntity = _mapper.Map<CardInfo>(model);
-            await _genericRepository.Update(cardInfoEntity);
+            _unitOfWork.GenericRepository.Update(cardInfoEntity);
+            await _unitOfWork.SaveChanges();
         }
     }
 }

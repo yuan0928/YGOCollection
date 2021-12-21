@@ -21,20 +21,17 @@ namespace YGOCollection.Repository
 
         public async Task Add(TEntity entity)
         {
-            _dbSet.Add(entity);
-            await _ygoContext.SaveChangesAsync();
+            await _dbSet.AddAsync(entity);
         }
 
-        public async Task Delete(TEntity entity)
+        public void Delete(TEntity entity)
         {
             _dbSet.Remove(entity);
-            await _ygoContext.SaveChangesAsync();
         }
-        public async Task SoftDelete(TEntity entity)
+        public void SoftDelete(TEntity entity)
         {
             _dbSet.Attach(entity);
             _ygoContext.Entry(entity).State = EntityState.Modified;
-            await _ygoContext.SaveChangesAsync();
         }
 
         public async Task<TEntity> GetById(object id)
@@ -47,11 +44,10 @@ namespace YGOCollection.Repository
             return await _dbSet.ToListAsync();
         }
 
-        public async Task Update(TEntity entity)
+        public void Update(TEntity entity)
         {
             _dbSet.Attach(entity);
             _ygoContext.Entry(entity).State = EntityState.Modified;
-            await _ygoContext.SaveChangesAsync();
         }
     }
 }
