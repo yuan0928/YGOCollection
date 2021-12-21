@@ -12,7 +12,7 @@ namespace YGOCollection.Repository
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {
         private readonly YGOContext _ygoContext;
-        private DbSet<TEntity> _dbSet;
+        private readonly DbSet<TEntity> _dbSet;
         public GenericRepository(YGOContext context) 
         {
             _ygoContext = context;
@@ -28,6 +28,12 @@ namespace YGOCollection.Repository
         public async Task Delete(TEntity entity)
         {
             _dbSet.Remove(entity);
+            await _ygoContext.SaveChangesAsync();
+        }
+        public async Task SoftDelete(TEntity entity)
+        {
+            _dbSet.Attach(entity);
+            _ygoContext.Entry(entity).State = EntityState.Modified;
             await _ygoContext.SaveChangesAsync();
         }
 

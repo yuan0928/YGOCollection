@@ -12,6 +12,7 @@ namespace YGOCollection.Repository.Interface
         Task<TEntity> GetById(object id);
         Task Add(TEntity entity);
         Task Delete(TEntity entity);
+        Task SoftDelete(TEntity entity);
         Task Update(TEntity entity);
     }
 }

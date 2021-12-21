@@ -33,6 +33,13 @@ namespace YGOCollection.Repository
             _dbSet.Remove(entity);
             await _ygoContext.SaveChangesAsync();
         }
+        public async Task SoftDelete(CardInfo entity)
+        {
+
+            _dbSet.Attach(entity);
+            _ygoContext.Entry(entity).State = EntityState.Modified;
+            await _ygoContext.SaveChangesAsync();
+        }
 
         public async Task<CardInfo> GetById(object id)
         {

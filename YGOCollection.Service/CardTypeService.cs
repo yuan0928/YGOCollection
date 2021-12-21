@@ -32,6 +32,12 @@ namespace YGOCollection.Service
             var cardTypeEntity = await _genericRepository.GetById(id);
             await _genericRepository.Delete(cardTypeEntity);
         }
+        public async Task SoftDeleteData(int? id)
+        {
+            var cardSeriesEntity = await _genericRepository.GetById(id);
+            cardSeriesEntity.IsDelete = true;
+            await _genericRepository.SoftDelete(cardSeriesEntity);
+        }
 
         public async Task<CardTypeDTO> GetDataById(int? id)
         {
