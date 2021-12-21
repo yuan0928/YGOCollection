@@ -33,7 +33,7 @@ namespace YGOCollection.Controllers
         {
             var cardSeriesList = await _cardSeriesService.GetList();
             var cardTypeList = await _cardTypeService.GetList();
-            ViewData["CardSeriesId"] = new SelectList(_mapper.Map<IEnumerable<CardSeriesViewModel>>(cardSeriesList), "Id", "SeriesName");
+            ViewData["CardSeriesId"] = new SelectList(_mapper.Map<IEnumerable<CardSeriesViewModel>>(cardSeriesList), "Id", "SeriesCode");
             ViewData["CardTypeId"] = new SelectList(_mapper.Map<IEnumerable<CardTypeViewModel>>(cardTypeList), "Id", "TypeName");
             return View();
         }
@@ -78,7 +78,7 @@ namespace YGOCollection.Controllers
             }
             var cardSeriesList = await _cardSeriesService.GetList();
             var cardTypeList = await _cardTypeService.GetList();
-            ViewData["CardSeriesId"] = new SelectList(_mapper.Map<IEnumerable<CardSeriesViewModel>>(cardSeriesList), "Id", "SeriesName",cardInfo.CardSeriesId);
+            ViewData["CardSeriesId"] = new SelectList(_mapper.Map<IEnumerable<CardSeriesViewModel>>(cardSeriesList), "Id", "SeriesCode",cardInfo.CardSeriesId);
             ViewData["CardTypeId"] = new SelectList(_mapper.Map<IEnumerable<CardTypeViewModel>>(cardTypeList), "Id", "TypeName",cardInfo.CardTypeId);
             return View(_mapper.Map<CardInfoViewModel>(cardInfo));
         }
