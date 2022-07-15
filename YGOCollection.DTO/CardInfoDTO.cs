@@ -10,6 +10,7 @@ namespace YGOCollection.DTO
         public int CardSeriesId { get; set; }
         public string SeriesNum { get; set; }
         public string CardPassword { get; set; }
+        public string ImagePath { get; set; }
         public CardTypeDTO CardType { get; set; }
         public CardSeriesDTO CardSeries { get; set; }
     }

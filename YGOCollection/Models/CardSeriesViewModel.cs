@@ -13,6 +13,8 @@ namespace YGOCollection.Models
         public string SeriesName { get; set; }
         [DisplayName("系列代號")]
         public string SeriesCode { get; set; }
+        [DisplayName("張數")]
+        public int Piece { get; set; }
         public bool IsDelete { get; set; }
     }
 }

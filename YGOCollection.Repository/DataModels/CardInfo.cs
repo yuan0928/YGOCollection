@@ -17,6 +17,7 @@ namespace YGOCollection.Repository.DataModels
         public int CardSeriesId { get; set; }
         public string SeriesNum { get; set; }
         public string CardPassword { get; set; }
+        public string ImagePath { get; set; }
         public bool IsDelete { get; set; }
         public virtual CardType CardType { get; set; }
         public virtual CardSeries CardSeries { get; set; }

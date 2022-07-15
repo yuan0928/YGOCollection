@@ -19,6 +19,8 @@ namespace YGOCollection.Models
         public string SeriesNum { get; set; }
         [DisplayName("卡片密碼")]
         public string CardPassword { get; set; }
+        [DisplayName("圖片位置")]
+        public string ImagePath { get; set; }
         public CardTypeViewModel CardType { get; set; }
         public CardSeriesViewModel CardSeries { get; set; }
     }

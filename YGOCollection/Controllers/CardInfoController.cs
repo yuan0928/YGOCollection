@@ -46,7 +46,7 @@ namespace YGOCollection.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,CardTypeId,CardSeriesId,SeriesNum,CardPassword")] CardInfoViewModel cardInfoViewModel)
+        public async Task<IActionResult> Create([Bind("Id,Name,CardTypeId,CardSeriesId,SeriesNum,CardPassword,ImagePath")] CardInfoViewModel cardInfoViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -94,7 +94,7 @@ namespace YGOCollection.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,CardTypeId,CardSeriesId,SeriesNum,CardPassword")] CardInfoViewModel cardInfoViewModel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,CardTypeId,CardSeriesId,SeriesNum,CardPassword,ImagePath")] CardInfoViewModel cardInfoViewModel)
         {
             if (id != cardInfoViewModel.Id)
             {
