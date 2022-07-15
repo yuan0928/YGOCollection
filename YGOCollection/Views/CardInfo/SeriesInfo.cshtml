@@ -1,0 +1,32 @@
+﻿@model IEnumerable<CardInfoViewModel>
+
+@{
+    ViewData["Title"] = "SeriesInfo";
+    var seriesInfo = ViewData["CardSeriesInfo"] as CardSeriesViewModel;
+}
+
+<h1>@seriesInfo.SeriesName</h1>
+
+<div class="card-deck">
+    <div class="card bg-light">
+        <div class="card-body">
+            <div class="progress">
+              <div class="progress-bar" style="width:70%"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+<div class="card-deck">
+    @foreach(var item in Model){
+        <div class="card bg-light">
+            <img class="card-img-top" src="img_avatar1.png" alt="Card image">
+            <div class="card-header">@item.CardSeries.SeriesCode-@item.SeriesNum</div>
+            <div class="card-body">
+                 <h4 class="card-title">@item.Name</h4>
+            </div>
+            <div class="card-footer">@item.CardPassword</div>
+        </div>
+    }
+</div>
+

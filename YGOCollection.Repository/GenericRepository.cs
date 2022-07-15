@@ -43,7 +43,10 @@ namespace YGOCollection.Repository
         {
             return await _dbSet.ToListAsync();
         }
-
+        public Task<IEnumerable<TEntity>> GetListBy(object condition)
+        {
+            throw new NotImplementedException();
+        }
         public void Update(TEntity entity)
         {
             _dbSet.Attach(entity);

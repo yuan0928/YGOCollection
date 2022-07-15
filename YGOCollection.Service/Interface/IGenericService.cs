@@ -14,6 +14,11 @@ namespace YGOCollection.Service.Interface
         /// <returns></returns>
         Task<IEnumerable<T>> GetList();
         /// <summary>
+        /// 條件搜尋
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable<T>> GetListBy(int condition);
+        /// <summary>
         /// 取得單一資料
         /// </summary>
         /// <param name="id"></param>

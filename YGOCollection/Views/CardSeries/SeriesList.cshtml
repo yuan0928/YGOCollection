@@ -1,0 +1,19 @@
+﻿@model IEnumerable<CardSeriesViewModel>
+
+@{
+    ViewData["Title"] = "SeriesList";
+}
+
+<h1>SeriesList</h1>
+
+<div class="card-deck">
+    @foreach(var item in Model){
+        <div class="card bg-light">
+            <div class="card-body text-center">
+                <p class="card-text">
+                    <a asp-controller="CardInfo" asp-action="SeriesInfo" asp-route-seriesId="@item.Id" class="stretched-link">@item.SeriesName</a>           
+                </p>                
+            </div>
+        </div>
+    }
+</div>

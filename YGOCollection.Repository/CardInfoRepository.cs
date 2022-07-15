@@ -47,7 +47,10 @@ namespace YGOCollection.Repository
         {
             return await _dbSet.Include(c => c.CardSeries).Include(c => c.CardType).ToListAsync();
         }
-
+        public async Task<IEnumerable<CardInfo>> GetListBy(object condition)
+        {
+            return await _dbSet.Where(c => c.CardSeriesId == (int)condition).Include(c => c.CardSeries).Include(c => c.CardType).ToListAsync();
+        }
         public void Update(CardInfo entity)
         {
             _dbSet.Attach(entity);

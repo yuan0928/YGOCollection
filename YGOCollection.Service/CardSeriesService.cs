@@ -53,12 +53,17 @@ namespace YGOCollection.Service
             var cardSeriesList = await _unitOfWork.GenericRepository.GetList();
             return _mapper.Map<List<CardSeriesDTO>>(cardSeriesList.Where(x => x.IsDelete == false));
         }
-
+        public Task<IEnumerable<CardSeriesDTO>> GetListBy(int condition)
+        {
+            throw new NotImplementedException();
+        }
         public async Task UpdateData(CardSeriesDTO model)
         {
             var cardSeriesEntity = _mapper.Map<CardSeries>(model);
             _unitOfWork.GenericRepository.Update(cardSeriesEntity);
             await _unitOfWork.SaveChanges();
         }
+
+
     }
 }

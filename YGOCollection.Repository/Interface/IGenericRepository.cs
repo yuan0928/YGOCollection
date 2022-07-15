@@ -9,6 +9,7 @@ namespace YGOCollection.Repository.Interface
     public interface IGenericRepository<TEntity> where TEntity : class
     {
         Task<IEnumerable<TEntity>> GetList();
+        Task<IEnumerable<TEntity>> GetListBy(object condition);
         Task<TEntity> GetById(object id);
         Task Add(TEntity entity);
         void Delete(TEntity entity);

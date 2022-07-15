@@ -54,11 +54,18 @@ namespace YGOCollection.Service
             return _mapper.Map<List<CardInfoDTO>>(CardInfoList);
         }
 
+        public async Task<IEnumerable<CardInfoDTO>> GetListBy(int condition)
+        {
+            var CardInfoList = await _unitOfWork.GenericRepository.GetListBy(condition);
+            return _mapper.Map<List<CardInfoDTO>>(CardInfoList);
+        }
+
         public async Task UpdateData(CardInfoDTO model)
         {
             var cardInfoEntity = _mapper.Map<CardInfo>(model);
             _unitOfWork.GenericRepository.Update(cardInfoEntity);
             await _unitOfWork.SaveChanges();
         }
+
     }
 }

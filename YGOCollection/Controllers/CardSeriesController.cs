@@ -25,6 +25,11 @@ namespace YGOCollection.Controllers
             var cardSeriesList = await _genericService.GetList();
             return View(_mapper.Map<List<CardSeriesViewModel>>(cardSeriesList));
         }
+        public async Task<IActionResult> SeriesList()
+        {
+            var cardSeriesList = await _genericService.GetList();
+            return View(_mapper.Map<List<CardSeriesViewModel>>(cardSeriesList));
+        }
 
         public IActionResult Create()
         {

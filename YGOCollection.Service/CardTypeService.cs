@@ -54,11 +54,17 @@ namespace YGOCollection.Service
             return _mapper.Map<List<CardTypeDTO>>(cardTypeList);
         }
 
+        public Task<IEnumerable<CardTypeDTO>> GetListBy(int condition)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task UpdateData(CardTypeDTO model)
         {
             var cardTypeEntity = _mapper.Map<CardType>(model);
             _unitOfWork.GenericRepository.Update(cardTypeEntity);
             await _unitOfWork.SaveChanges();
         }
+
     }
 }
