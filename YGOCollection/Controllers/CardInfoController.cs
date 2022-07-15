@@ -33,6 +33,7 @@ namespace YGOCollection.Controllers
         {
             var cardInfoList = await _cardInfoService.GetListBy(seriesId);
             ViewData["CardSeriesInfo"] = _mapper.Map<CardSeriesViewModel>(await _cardSeriesService.GetDataById(seriesId));
+            ViewData["CardTypeList"] = _mapper.Map<IEnumerable<CardTypeViewModel>>(await _cardTypeService.GetList());
             return View(_mapper.Map<IEnumerable<CardInfoViewModel>>(cardInfoList));
         }
         public async Task<IActionResult> Create()
