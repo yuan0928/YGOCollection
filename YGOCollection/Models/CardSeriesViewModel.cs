@@ -15,6 +15,8 @@ namespace YGOCollection.Models
         public string SeriesCode { get; set; }
         [DisplayName("張數")]
         public int Piece { get; set; }
+        [DisplayName("期數")]
+        public int Period { get; set; }
         public bool IsDelete { get; set; }
     }
 }

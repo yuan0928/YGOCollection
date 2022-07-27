@@ -20,78 +20,31 @@
     </div>
 </div>
 <hr>
-<div class="card">
-    <div class="card-header">
-        @foreach(var item in cardTypeList.Where(x => x.Id == 1))
-        {
-            @item.TypeName
-        }
-    </div>
-    <div class="card-body">
-       <div class="row row-cols-1 row-cols-md-6">
-            @foreach(var item in Model.Where(x=>x.CardType.Id==1)){
-                <div class="col mb-4">
-                    <div class="card bg-light">
-         
-                        <div class="card-header">
-                            <p class="card-text text-center">@item.SeriesNum</p>
-                        </div>
-                         <img class="card-img-bottom" style="height:100%" src="/Images/@item.CardSeries.SeriesCode/@(item.CardSeries.SeriesCode)-@(item.SeriesNum).jpg" alt="@(item.Name)圖片">
-                    </div>
-                </div>
-            }
-        </div>
-    </div>
-</div>
 
-<hr>
-<div class="card">
-    <div class="card-header">
-        @foreach(var item in cardTypeList.Where(x => x.Id == 2))
-        {
-            @item.TypeName
-        }
-    </div>
-    <div class="card-body">
-        <div class="row row-cols-1 row-cols-md-6">
-        @foreach(var item in Model.Where(x=>x.CardType.Id==2)){
-            <div class="col mb-4">
-                <div class="card bg-light">
+
+ @foreach(var perCardType in cardTypeList)
+{
+    <div class="card mb-3">
+         <div class="card-header">
+            @perCardType.TypeName
+        </div>
+        <div class="card-body">
+           <div class="row row-cols-1 row-cols-md-6">
+                @foreach(var item in Model.Where(x=>x.CardType.Id==perCardType.Id)){
+                    <div class="col mb-4">
+                        <div class="card bg-light">
          
-                    <div class="card-header">
-                        <p class="card-text text-center">@item.SeriesNum</p>
+                            <div class="card-header">
+                                <p class="card-text text-center">@item.SeriesNum</p>
+                            </div>
+                             <img class="card-img-bottom" style="height:100%" src="/Images/@item.CardSeries.SeriesCode/@(item.CardSeries.SeriesCode)-@(item.SeriesNum).jpg" alt="@(item.Name)圖片">
+                        </div>
                     </div>
-                     <img class="card-img-bottom" style="height:100%" src="/Images/@item.CardSeries.SeriesCode/@(item.CardSeries.SeriesCode)-@(item.SeriesNum).jpg" alt="@(item.Name)圖片">
-                </div>
+                }
             </div>
-        }
         </div>
     </div>
-</div>
+}
 
-<hr>
-<div class="card">
-        <div class="card-header">
-        @foreach(var item in cardTypeList.Where(x => x.Id == 3))
-        {
-            @item.TypeName
-        }
-    </div>
-    <div class="card-body">
-        <div class="row row-cols-1 row-cols-md-6">
-            @foreach(var item in Model.Where(x=>x.CardType.Id==3)){
-                <div class="col mb-4">
-                    <div class="card bg-light">
-         
-                        <div class="card-header">
-                            <p class="card-text text-center">@item.SeriesNum</p>
-                        </div>
-                         <img class="card-img-bottom" style="height:100%" src="/Images/@item.CardSeries.SeriesCode/@(item.CardSeries.SeriesCode)-@(item.SeriesNum).jpg" alt="@(item.Name)圖片">
-                    </div>
-                </div>
-            }
-        </div>
-    </div>
-</div>
 
 

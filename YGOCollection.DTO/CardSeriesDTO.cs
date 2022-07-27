@@ -12,6 +12,7 @@ namespace YGOCollection.DTO
         public string SeriesName { get; set; }
         public string SeriesCode { get; set; }
         public int Piece { get; set; }
+        public int Period { get; set; }
         public bool IsDelete { get; set; }
     }
 }
